@@ -15,7 +15,7 @@ groq_api_key=st.sidebar.text_input(label="Groq API Key",type="password")
 
 
 if not groq_api_key:
-    st.info("Please add your Groq API key to continue")
+    st.info("Please add your Groq APPI key to continue")
     st.stop()
 
 llm=ChatGroq(model="Gemma2-9b-It",groq_api_key=groq_api_key)
@@ -36,11 +36,12 @@ math_chain=LLMMathChain.from_llm(llm=llm)
 calculator=Tool(
     name="Calculator",
     func=math_chain.run,
-    description="A tools for answering math related questions. Only input mathematical expression need to be provided"
+    description="A tools for answering math related questions. Only input mathematical expression need to bed provided"
 )
 
 prompt="""
-Your a agent tasked for explaining users how to solve mathematical question. Logically just give detailed steps to come to final solution but not the answer.
+Your a agent tasked for solving users mathemtical question. Logically arrive at the solution and provide a detailed explanation
+and display it point wise for the question below
 Question:{question}
 Answer:
 """
@@ -78,7 +79,7 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg['content'])
 
 ## LEts start the interaction
-question=st.text_area("Enter your question:","I have 5 bananas and 7 grapes. I eat 2 bananas and give away 3 grapes. Then I buy a dozen apples and 2 packs of blueberries. Each pack of blueberries contains 25 berries. How many total pieces of fruit do I have at the end?")
+question=st.text_area("Enter youe question:","I have 5 bananas and 7 grapes. I eat 2 bananas and give away 3 grapes. Then I buy a dozen apples and 2 packs of blueberries. Each pack of blueberries contains 25 berries. How many total pieces of fruit do I have at the end?")
 
 if st.button("find my answer"):
     if question:
